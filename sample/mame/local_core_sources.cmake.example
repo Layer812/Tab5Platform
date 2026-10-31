@@ -1,0 +1,6 @@
+# EXAMPLE ONLY. Do not rename/use until you have a real, patched ESP32-P4
+# libretro MAME2000 core with all necessary source dependencies and license.
+# list(APPEND mame_sample_sources
+#     "${CMAKE_CURRENT_LIST_DIR}/external/mame2000/.../actual_ported_source.c"
+# )
+# set(T5_MAME_CORE_PORT_READY TRUE)
