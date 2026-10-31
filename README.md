@@ -29,7 +29,7 @@ tools/                       Pinned dependency/overlay bootstrap for Tab5
 ## Windows / ESP-IDF 5.5.4
 
 1. Clone into its own directory (NOT `G:\X68KTab5`, and not the X68KTab5 production tree).
-2. Run `RUN_THIS_BUILD.cmd`. It activates `G:\esp-idf-5.5.4` where needed, downloads pinned M5GFX 0.2.35 and M5Unified 0.2.28, and downloads the R6-validated overlays into this tree (not into X68KTab5).
+2. Run `RUN_THIS_NATIVE_BUILD_REPORT.cmd` for a one-command native build with a single `Tab5Platform_NATIVE_BUILD_RESULT.zip` (BUILD.log, RESULT.json and app BIN only on success). Alternatively run the original `RUN_THIS_BUILD.cmd`. It activates `G:\esp-idf-5.5.4` where needed, downloads pinned M5GFX 0.2.35 and M5Unified 0.2.28, and downloads the R6-validated overlays into this tree (not into X68KTab5).
 3. It attempts `idf.py build` only. It does not flash anything.
 4. The included `RUN_THIS_FLASH_APP_ONLY_EXPERIMENTAL.cmd` is a separate, deliberate action, and will **replace the currently installed app** if used. It must only be used with compatible partition table and intentionally approved app-only flashing. The existing `humanxdf` partition is at 0x810000 and must not be overwritten.
 

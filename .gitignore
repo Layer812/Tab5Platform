@@ -8,3 +8,6 @@
 /sample/mame/local_core_sources.cmake
 *.pyc
 __pycache__/
+
+/native_build_result/
+/Tab5Platform_NATIVE_BUILD_RESULT.zip

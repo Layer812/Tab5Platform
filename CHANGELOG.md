@@ -1,5 +1,12 @@
 # Tab5 Platform changelog
 
+## R3 build enablement (source-only; native verification pending) — 2026-10-31
+
+- Corrected the no-core MAME adapter compile path and M5GFX font namespacing.
+- Added a host-compiled MAME stub regression and native build CI workflow (GitHub Actions jobs currently fail before steps, not a verified build).
+- Added \`RUN_THIS_NATIVE_BUILD_REPORT.cmd\`: real Windows ESP-IDF build, one report ZIP with log/JSON/BIN-on-success, no device flashing.
+- Production X68KTab5 R6 remains untouched; MAME engine not yet linked.
+
 ## R2 source release candidate — 2026-10-31
 
 - Renamed top-level product from an arcade emulator app to reusable **Tab5 Platform**.

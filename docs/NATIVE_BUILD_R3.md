@@ -29,3 +29,10 @@ Goal: establish an **independent, repeatable ESP-IDF 5.5.4 ESP32-P4 native build
 ## Static M5GFX API compatibility fix
 
 - Qualify fonts as `lgfx::fonts::FreeSansBold18pt7b` and `lgfx::fonts::FreeSansBold24pt7b`, and text datum as `lgfx::textdatum_t::top_left`, matching the pinned upstream M5GFX 0.2.35 public headers. Typography size is unchanged.
+
+## R3 build-only single-report Windows entrypoint
+
+From the private Tab5Platform checkout, run \`RUN_THIS_NATIVE_BUILD_REPORT.cmd\`.
+It activates ESP-IDF 5.5.4 from \`IDF_PATH\` or \`G:\esp-idf-5.5.4\`, executes the actual library bootstrap, target selection and native build, and writes one \`Tab5Platform_NATIVE_BUILD_RESULT.zip\` containing \`BUILD.log\` and \`RESULT.json\`. A successfully generated \`tab5_platform_reference.bin\` is added only if the build command returned success. The JSON contains the exact commit, exit code and BIN SHA-256. No flash and no backups. The report directory and ZIP are ignored by Git.
+
+On systems without Windows / ESP-IDF, the script exits nonzero and emits an explicit FAIL report instead of claiming a build success. The authoring environment verified Python syntax and the negative-path report ZIP; a successful ESP-IDF/physical build remains unverified.
