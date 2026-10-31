@@ -14,3 +14,4 @@ cc -std=c11 -Wall -Wextra -Werror \
   "$ROOT/sample/mame/src/t5_sample_mame.c" \
   "$ROOT/tests/test_mame_stub.c" -o "$TMP/mame_stub"
 "$TMP/mame_stub"
+python3 "$ROOT/tests/test_speaker_overlay_eol.py"

@@ -44,3 +44,11 @@ Owner's first real Windows invocation from `G:\Tab5Platform` exited before the d
 Fix: `tools/native_build_report.py` now executes the existing `RUN_THIS_BUILD.cmd` as a standalone batch file through `cmd.exe /d /c` (no compound string or `/s`). The batch unconditionally calls the selected `export.bat`, then bootstraps, selects `esp32p4`, and compiles; every command's exit status is checked. The single result ZIP and no-flash contract are retained.
 
 From an existing `G:\Tab5Platform` checkout: `git pull --ff-only`, then `RUN_THIS_NATIVE_BUILD_REPORT.cmd`. A successful native compile has **not** yet been observed.
+
+## Windows M5Unified Speaker overlay CRLF fix (2026-10-31)
+
+First native attempt successfully fetched and pinned M5GFX 0.2.35 and M5Unified 0.2.28 and passed the LCD and ES8388 overlays, then stopped at the original R6 `patch_m5unified_x68ktab_speaker_idle.py`: `Unknown Speaker idle branch, not safe to patch`. The original upstream M5Unified pinned LF source contains the exact R6 BEFORE block once; on Windows, Git can checkout `Speaker_Class.inl` with CRLF, breaking the R6 script's multiline exact LF byte match.
+
+The platform bootstrap now uses `tools/apply_r6_speaker_overlay.py` for *only this final overlay*. It parses the authoritative downloaded R6 BEFORE/AFTER literals and matches them with the existing source's LF or CRLF, preserving original line endings. It refuses mixed EOL, non-pinned M5Unified revisions, ambiguous matches and duplicate patch markers; applying twice is safe. Existing LCD and ES8388 overlays are unchanged. Host tests now cover LF, CRLF, duplicate safety and idempotency.
+
+No dependency re-clone or backup is needed. Run: `git -C G:\Tab5Platform pull --ff-only && cd /d G:\Tab5Platform && RUN_THIS_NATIVE_BUILD_REPORT.cmd`. The native build has not yet completed; this fixes the previously demonstrated bootstrap blocker.

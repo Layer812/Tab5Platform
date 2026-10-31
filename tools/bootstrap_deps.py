@@ -44,5 +44,11 @@ for file in SCRIPTS:
         if not content or b"#!/" not in content[:128] and b"import " not in content[:512]:
             raise SystemExit(f"STOP: unexpected overlay content {file}")
         dest.write_bytes(content)
-    run(sys.executable,str(dest),cwd=ROOT)
-print("READY: dependencies and R6-validated overlays applied to ArcadeTab5 copy")
+    if file == "patch_m5unified_x68ktab_speaker_idle.py":
+        # R6 patch is an LF multiline raw-byte matcher. Windows Git can
+        # check out the pinned Speaker_Class.inl as CRLF. Preserve exact R6
+        # patch contents while accepting either newline encoding.
+        run(sys.executable, str(ROOT / "tools" / "apply_r6_speaker_overlay.py"), cwd=ROOT)
+    else:
+        run(sys.executable, str(dest), cwd=ROOT)
+print("READY: dependencies and R6 overlays applied to Tab5Platform copy")
