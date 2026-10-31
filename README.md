@@ -41,9 +41,9 @@ tools/                       Pinned dependency/overlay bootstrap for Tab5
 
 ## Native/physical verification status
 
-- Pure geometry host test: runnable with `sh tests/run_host_tests.sh`.
+- Host GCC checks for geometry and the unlinked MAME frontend: runnable with `sh tests/run_host_tests.sh`.
 - Firmware source: no complete native ESP-IDF compile performed in this authoring environment.
 - LCD/SD/USB/audio and any MAME gameplay: NOT TESTED on a physical Tab5.
 - Official GitHub release / M5Burner: NOT PUBLISHED by this package.
 
-See [Platform architecture](docs/PLATFORM_ARCHITECTURE_R2.md), [MAME sample integration](sample/mame/README.md), [release gates](docs/RELEASE_GATES.md).
+See [R3 native build-enablement notes](docs/NATIVE_BUILD_R3.md). See [Platform architecture](docs/PLATFORM_ARCHITECTURE_R2.md), [MAME sample integration](sample/mame/README.md), [release gates](docs/RELEASE_GATES.md).

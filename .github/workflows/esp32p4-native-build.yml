@@ -1,0 +1,30 @@
+name: ESP-IDF 5.5.4 native build (Tab5 ESP32-P4)
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  esp32p4-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: espressif/idf:v5.5.4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare pinned R6-compatible M5Stack libraries in this checkout
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          python3 tools/bootstrap_deps.py
+      - name: Select ESP32-P4 target
+        run: idf.py set-target esp32p4
+      - name: Native ESP-IDF firmware build (never flash)
+        run: idf.py build -j 2
+      - name: Confirm expected app binary exists
+        run: |
+          test -s build/tab5_platform_reference.bin
+          echo "Native ESP32-P4 build produced an app binary; hardware operation is NOT tested."

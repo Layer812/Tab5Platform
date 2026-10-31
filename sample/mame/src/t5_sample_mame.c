@@ -13,8 +13,11 @@
 
 static volatile t5_mame_state_t s_state=T5_MAME_IDLE;
 static volatile int s_stop=0;
+/* The ROM buffer is shared by the linked-core and stub builds. The stub
+ * intentionally rejects boot before this buffer is ever populated. */
+#define T5_MAME_ROM_PATH_CAPACITY 512u
 #ifdef T5_SAMPLE_MAME_WITH_LIBRETRO_CORE
-static char s_rom[512];
+static char s_rom[T5_MAME_ROM_PATH_CAPACITY];
 #endif
 static uint16_t s_buttons=0;
 static portMUX_TYPE s_input_mux=portMUX_INITIALIZER_UNLOCKED;
@@ -203,7 +206,7 @@ cleanup:
 #endif
 
 int t5_mame_start(const char *path){
-    if(!path || strlen(path)>=sizeof(s_rom) || strncmp(path,"/sdcard/arcade/roms/",20)!=0)
+    if(!path || strlen(path)>=T5_MAME_ROM_PATH_CAPACITY || strncmp(path,"/sdcard/arcade/roms/",20)!=0)
         return T5P_ERR_INVALID;
     if(s_state==T5_MAME_RUNNING || s_state==T5_MAME_BOOTING)return T5P_ERR_BUSY;
     struct stat st;
