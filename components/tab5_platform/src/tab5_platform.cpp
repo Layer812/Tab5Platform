@@ -291,9 +291,9 @@ extern "C" void t5p_ui_end(void){if(s_display_mutex)xSemaphoreGive(s_display_mut
 extern "C" void t5p_ui_clear(uint16_t c){M5.Display.fillScreen(c);}
 extern "C" void t5p_ui_fill_rect(int x,int y,int w,int h,uint16_t c){M5.Display.fillRect(x,y,w,h,c);}
 extern "C" void t5p_ui_text(int x,int y,const char *text,uint16_t color,int large){
-    M5.Display.setFont(large?&fonts::FreeSansBold24pt7b:&fonts::FreeSansBold18pt7b);
+    M5.Display.setFont(large?&lgfx::fonts::FreeSansBold24pt7b:&lgfx::fonts::FreeSansBold18pt7b);
     M5.Display.setTextColor(color);
-    M5.Display.setTextDatum(top_left);
+    M5.Display.setTextDatum(lgfx::textdatum_t::top_left);
     if(text)M5.Display.drawString(text,x,y);
 }
 extern "C" int t5p_init(void){
