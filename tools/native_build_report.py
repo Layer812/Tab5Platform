@@ -23,10 +23,12 @@ APP_BIN = ROOT / "build" / "tab5_platform_reference.bin"
 IDF_FALLBACK = Path(r"G:\esp-idf-5.5.4")
 
 
-def run_build(command: str) -> int:
+def run_build(batch_path: Path) -> int:
     print("Tab5Platform: ESP-IDF 5.5.4 native build (no flash)", flush=True)
+    # Windows cmd.exe /S /C reinterprets the first quoted token in a compound
+    # command. Invoke the existing, standalone build batch directly instead.
     process = subprocess.Popen(
-        ["cmd.exe", "/d", "/s", "/c", command],
+        ["cmd.exe", "/d", "/c", str(batch_path)],
         cwd=ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -70,16 +72,11 @@ def main() -> int:
             BUILD_LOG.write_text(detail + "\n", encoding="utf-8")
         else:
             source = str(idf_root)
-            # The checked-out source must be built in its own folder. No writes to X68KTab5.
-            # The bootstrap script verifies both pinned M5 repositories and applies guarded overlays.
-            command = (
-                f'call "{export}" && '
-                'python tools\\bootstrap_deps.py && '
-                'idf.py set-target esp32p4 && '
-                'idf.py build'
-            )
+            # RUN_THIS_BUILD.cmd is the single authoritative build sequence:
+            # call export.bat, bootstrap pinned M5 libraries, set-target, build.
+            # Run as a standalone batch; never concatenate a quoted call command.
             try:
-                rc = run_build(command)
+                rc = run_build(ROOT / "RUN_THIS_BUILD.cmd")
             except OSError as exc:
                 detail = f"Unable to launch build: {exc}"
                 BUILD_LOG.write_text(detail + "\n", encoding="utf-8")

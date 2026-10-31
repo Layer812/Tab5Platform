@@ -36,3 +36,11 @@ From the private Tab5Platform checkout, run \`RUN_THIS_NATIVE_BUILD_REPORT.cmd\`
 It activates ESP-IDF 5.5.4 from \`IDF_PATH\` or \`G:\esp-idf-5.5.4\`, executes the actual library bootstrap, target selection and native build, and writes one \`Tab5Platform_NATIVE_BUILD_RESULT.zip\` containing \`BUILD.log\` and \`RESULT.json\`. A successfully generated \`tab5_platform_reference.bin\` is added only if the build command returned success. The JSON contains the exact commit, exit code and BIN SHA-256. No flash and no backups. The report directory and ZIP are ignored by Git.
 
 On systems without Windows / ESP-IDF, the script exits nonzero and emits an explicit FAIL report instead of claiming a build success. The authoring environment verified Python syntax and the negative-path report ZIP; a successful ESP-IDF/physical build remains unverified.
+
+## Windows cmd /S /C quoting fix — 2026-10-31
+
+Owner's first real Windows invocation from `G:\Tab5Platform` exited before the dependency/bootstrap and compile steps with `'"G:\esp-idf-5.5.4\export.bat"' is not recognized`. Cause: Python launched a compound command string via `cmd.exe /d /s /c`, which changed quoting around the leading `call "..."` token. This is a batch invocation issue, **not** an ESP-IDF compile failure.
+
+Fix: `tools/native_build_report.py` now executes the existing `RUN_THIS_BUILD.cmd` as a standalone batch file through `cmd.exe /d /c` (no compound string or `/s`). The batch unconditionally calls the selected `export.bat`, then bootstraps, selects `esp32p4`, and compiles; every command's exit status is checked. The single result ZIP and no-flash contract are retained.
+
+From an existing `G:\Tab5Platform` checkout: `git pull --ff-only`, then `RUN_THIS_NATIVE_BUILD_REPORT.cmd`. A successful native compile has **not** yet been observed.
