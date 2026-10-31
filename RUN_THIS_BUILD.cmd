@@ -30,7 +30,7 @@ if exist "sdkconfig" (
         echo ERROR: existing sdkconfig is not for esp32p4. Refusing to erase previous build.
         exit /b 4
     )
-    echo Reusing existing esp32p4 configuration (incremental build).
+    echo Reusing existing esp32p4 configuration - incremental build.
 ) else (
     idf.py set-target esp32p4
     if errorlevel 1 exit /b 4
