@@ -1,3 +1,5 @@
+> **Repository import in progress (2026-10-31):** The full R2 source is in the downloadable publish archive, but the GitHub tree is not complete yet. See [import status](docs/GITHUB_SOURCE_IMPORT_STATUS.md). Do not attempt an ESP-IDF build from this branch until the remaining source files are imported.
+
 # Tab5 Platform — R2 Platform Source Release Candidate
 
 **A reusable ESP32-P4 / M5Stack Tab5 hardware platform. Emulators, players and ROMs are NOT part of the platform.**
