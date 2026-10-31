@@ -9,6 +9,7 @@
 #include <string.h>
 #include <strings.h>
 #include <stdint.h>
+#include "rom_filename.h"
 #define MAX_ROMS 128
 #define PAGE_ROWS 8
 static char roms[MAX_ROMS][128];
@@ -25,7 +26,7 @@ static int is_zip(const char *name){
 static int append_rom(const char *name,void *userdata){
     (void)userdata;
     if(!is_zip(name) || rom_count>=MAX_ROMS)return 0;
-    snprintf(roms[rom_count],sizeof(roms[0]),"%s",name);
+    if(!t5p_rom_filename_copy(roms[rom_count],sizeof(roms[0]),name))return 0;
     ++rom_count;return 0;
 }
 static void sort_roms(void){

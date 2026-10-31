@@ -22,8 +22,19 @@ if errorlevel 1 exit /b 2
 python tools\bootstrap_deps.py
 if errorlevel 1 exit /b 3
 
-idf.py set-target esp32p4
-if errorlevel 1 exit /b 4
+rem Reuse the existing esp32p4 configuration so a minor source fix does
+rem not throw away 1000+ already compiled objects on every rerun.
+if exist "sdkconfig" (
+    findstr /B /C:"CONFIG_IDF_TARGET_ESP32P4=y" "sdkconfig" >nul
+    if errorlevel 1 (
+        echo ERROR: existing sdkconfig is not for esp32p4. Refusing to erase previous build.
+        exit /b 4
+    )
+    echo Reusing existing esp32p4 configuration (incremental build).
+) else (
+    idf.py set-target esp32p4
+    if errorlevel 1 exit /b 4
+)
 
 idf.py build
 if errorlevel 1 exit /b 5

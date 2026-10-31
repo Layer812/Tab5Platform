@@ -25,9 +25,9 @@ for name, (url, sha) in PIN.items():
         if path.exists() and any(path.iterdir()):
             raise SystemExit(f"STOP: existing non-git component {path}; no overwrite")
         run("git", "clone", "--filter=blob:none", url, str(path))
-    run("git", "fetch", "origin", sha, cwd=path)
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=path, text=True).strip()
     if head != sha:
+        run("git", "fetch", "origin", sha, cwd=path)
         status = subprocess.check_output(["git", "status", "--porcelain"], cwd=path, text=True)
         if status.strip():
             raise SystemExit(f"STOP: modified {name}; refusing checkout of pinned R6 version")

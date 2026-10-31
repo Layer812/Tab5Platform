@@ -52,3 +52,11 @@ First native attempt successfully fetched and pinned M5GFX 0.2.35 and M5Unified 
 The platform bootstrap now uses `tools/apply_r6_speaker_overlay.py` for *only this final overlay*. It parses the authoritative downloaded R6 BEFORE/AFTER literals and matches them with the existing source's LF or CRLF, preserving original line endings. It refuses mixed EOL, non-pinned M5Unified revisions, ambiguous matches and duplicate patch markers; applying twice is safe. Existing LCD and ES8388 overlays are unchanged. Host tests now cover LF, CRLF, duplicate safety and idempotency.
 
 No dependency re-clone or backup is needed. Run: `git -C G:\Tab5Platform pull --ff-only && cd /d G:\Tab5Platform && RUN_THIS_NATIVE_BUILD_REPORT.cmd`. The native build has not yet completed; this fixes the previously demonstrated bootstrap blocker.
+
+## ROM filename build error (2026-10-31, user-provided BUILD.log)
+
+Native build reached [1073/1105] before main/main.c:28 stopped with GCC 14.2 `-Werror=format-truncation` for `snprintf(roms[rom_count], 128, "%s", name)`. The later M5Unified `-Wliteral-suffix` diagnostic is a **warning**, not the build-stopping error. Changed the launcher to use `t5p_rom_filename_copy` with an explicit length check and a complete `memcpy`; filenames exceeding 127 bytes are deliberately not added as truncated, invalid ROM entries. Boundary tests for 127-byte accepted / 128-byte rejected names pass with host GCC `-Werror`.
+
+The Windows build launcher now reuses `sdkconfig` when `CONFIG_IDF_TARGET_ESP32P4=y`, avoiding destructive `idf.py set-target esp32p4` on every incremental build. Any mismatched existing target stops without deleting outputs. Pinned M5 dependencies already at the expected commit skip unnecessary Git fetches; exact guarded overlays still execute idempotently. These changes affect only Tab5Platform; no flashing, backups or modifications to X68KTab5 R6.
+
+Remaining requirement: re-run the existing native build to establish full compile/link status. No success is claimed yet.

@@ -15,3 +15,6 @@ cc -std=c11 -Wall -Wextra -Werror \
   "$ROOT/tests/test_mame_stub.c" -o "$TMP/mame_stub"
 "$TMP/mame_stub"
 python3 "$ROOT/tests/test_speaker_overlay_eol.py"
+cc -std=c11 -O2 -Wall -Wextra -Werror -Wformat-truncation=2 \
+  -I"$ROOT/main" "$ROOT/tests/test_rom_filename.c" -o "$TMP/rom_filename"
+"$TMP/rom_filename"
