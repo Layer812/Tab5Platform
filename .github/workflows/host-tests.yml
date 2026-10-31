@@ -1,0 +1,11 @@
+name: Host-only API smoke tests
+on:
+  push:
+  pull_request:
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check geometry and rotation (no firmware build)
+        run: bash tests/run_host_tests.sh

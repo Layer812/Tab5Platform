@@ -1,0 +1,10 @@
+/build/
+/sdkconfig
+/sdkconfig.old
+/managed_components/
+/components/M5Unified/
+/components/M5GFX/
+/sample/mame/external/
+/sample/mame/local_core_sources.cmake
+*.pyc
+__pycache__/
