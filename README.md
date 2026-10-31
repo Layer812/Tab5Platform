@@ -1,4 +1,4 @@
-> **Repository import in progress (2026-10-31):** The full R2 source is in the downloadable publish archive, but the GitHub tree is not complete yet. See [import status](docs/GITHUB_SOURCE_IMPORT_STATUS.md). Do not attempt an ESP-IDF build from this branch until the remaining source files are imported.
+> **R2 source import complete (2026-10-31):** All 38 files of the source candidate have been imported. Host geometry tests PASS. Native ESP-IDF build and Tab5 physical verification are still pending. MAME game engine is NOT included. See [import status](docs/GITHUB_SOURCE_IMPORT_STATUS.md).
 
 # Tab5 Platform — R2 Platform Source Release Candidate
 
