@@ -60,3 +60,11 @@ Native build reached [1073/1105] before main/main.c:28 stopped with GCC 14.2 `-W
 The Windows build launcher now reuses `sdkconfig` when `CONFIG_IDF_TARGET_ESP32P4=y`, avoiding destructive `idf.py set-target esp32p4` on every incremental build. Any mismatched existing target stops without deleting outputs. Pinned M5 dependencies already at the expected commit skip unnecessary Git fetches; exact guarded overlays still execute idempotently. These changes affect only Tab5Platform; no flashing, backups or modifications to X68KTab5 R6.
 
 Remaining requirement: re-run the existing native build to establish full compile/link status. No success is claimed yet.
+
+## R3 native build PASSED on Windows — 2026-11-02
+
+**Owner-provided successful native build output:** ESP-IDF 5.5.4 targeting ESP32-P4 reports `[4/4] Completed 'bootloader'`, `Project build complete`, `PASS: Firmware built. No device was flashed.`, and `RESULT: PASS; no flash performed`. The reference application BIN is produced by the standard project build.
+
+Status: **Native compile/link PASS (owner-confirmed)**. This replaces all preceding notes saying a native build was not yet demonstrated. Host-only and GitHub Actions caveats remain historical observations and do not invalidate the actual local Windows native build.
+
+**Next gate — physical Tab5 verification:** LCD panel and touch detection, SD mounting, USB boot HID, audio, and reference launcher are still NOT TESTED. MAME2000 backend remains unlinked; ROM selection cannot execute games. A device test requires intentionally replacing the currently installed *factory app*, so do NOT run `idf.py flash` or the emitted esptool multi-offset command; those also write the bootloader and partition table. The 8 MiB app starts at `0x10000`, and the protected `humanxdf` partition starts at `0x810000`. The existing experimental app-only command is a distinct operation that overwrites the installed app; it was NOT invoked as part of the successful build. Do not change production X68KTab5 R6.

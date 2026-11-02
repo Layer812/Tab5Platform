@@ -8,7 +8,7 @@
 | No MAME game emulation claimed when core missing | PASS source structure | `t5_mame_start` returns NOT_READY with explicit error |
 | vgmM5 and MidMod from their own upstream | PASS documentation | references pinned commit, not copies |
 | Host geometry verification | RUN with tests | `tests/run_host_tests.sh` |
-| Native ESP-IDF 5.5.4 build | NOT RUN | no configured Windows ESP-IDF in this authoring container |
+| Native ESP-IDF 5.5.4 build | **PASS — owner-confirmed** | 2026-11-02 Windows build output: ESP32-P4 `Project build complete`, `PASS: Firmware built`, `RESULT: PASS`; no flash performed |
 | Physical Tab5 display/USB/SD/audio | NOT RUN | device inaccessible |
 | Libretro/MAME real driver link/load/run | NOT DONE | external core unported/unlinked |
 | License finalized for original platform code | PENDING | project owner must choose and apply original-code license; upstream code has separate terms |

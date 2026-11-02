@@ -1,10 +1,10 @@
-> **R2 source import complete (2026-10-31):** All 38 files of the source candidate have been imported. Host geometry tests PASS. Native ESP-IDF build and Tab5 physical verification are still pending. MAME game engine is NOT included. See [import status](docs/GITHUB_SOURCE_IMPORT_STATUS.md).
+> **R3 native build PASS (2026-11-02, reported on Windows 11):** The owner confirmed `Project build complete`, `PASS: Firmware built`, and `RESULT: PASS; no flash performed` with ESP-IDF 5.5.4 / ESP32-P4. Physical Tab5 operation is NOT YET VERIFIED. The MAME game engine remains unlinked. See [release gates](docs/RELEASE_GATES.md).
 
 # Tab5 Platform — R2 Platform Source Release Candidate
 
 **A reusable ESP32-P4 / M5Stack Tab5 hardware platform. Emulators, players and ROMs are NOT part of the platform.**
 
-**Status (2026-10-31): R2 source package. Source inspection and limited host tests only; native ESP-IDF 5.5.4 build and physical Tab5 verification remain NOT RUN. The MAME emulator engine is NOT included, and no arcade game runs in the bundled build.**
+**Status (2026-11-02): R3 source candidate. Native ESP-IDF 5.5.4 build PASS, confirmed by the user's Windows build output; no firmware was flashed. Physical Tab5 display, touch, USB, SD and audio remain unverified. The MAME emulator engine is NOT included, so no arcade game runs in this build.**
 
 ## Ownership and directory layout
 
@@ -42,7 +42,7 @@ tools/                       Pinned dependency/overlay bootstrap for Tab5
 ## Native/physical verification status
 
 - Host GCC checks for geometry and the unlinked MAME frontend: runnable with `sh tests/run_host_tests.sh`.
-- Firmware source: no complete native ESP-IDF compile performed in this authoring environment.
+- Firmware source: **PASS on the owner's Windows 11 / ESP-IDF 5.5.4 / ESP32-P4 toolchain (2026-11-02)**; `Project build complete`, `RESULT: PASS; no flash performed`. The authoring environment did not independently compile the firmware.
 - LCD/SD/USB/audio and any MAME gameplay: NOT TESTED on a physical Tab5.
 - Official GitHub release / M5Burner: NOT PUBLISHED by this package.
 

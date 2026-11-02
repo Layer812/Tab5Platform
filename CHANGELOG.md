@@ -1,6 +1,12 @@
 # Tab5 Platform changelog
 
-## R3 build enablement (source-only; native verification pending) — 2026-10-31
+## R3 native build achieved — 2026-11-02
+
+- **ESP-IDF 5.5.4 / ESP32-P4 native compile and link PASS** on the owner's Windows 11 build (`Project build complete`; `RESULT: PASS`; no device flashed).
+- Native compilation is now validated; physical Tab5 peripherals/launcher and real MAME core remain unverified.
+- No changes to production X68KTab5 R6; neither bootloader nor partition table nor protected HumanXDF was written.
+
+## R3 build enablement — 2026-10-31
 
 - Corrected the no-core MAME adapter compile path and M5GFX font namespacing.
 - Added a host-compiled MAME stub regression and native build CI workflow (GitHub Actions jobs currently fail before steps, not a verified build).
@@ -18,4 +24,4 @@
 - Preserved R1 LCD/ES8388/SD/USB/PSRAM implementation and R6-derived library compatibility pins.
 - The original X68KTab5 R6 source, firmware and release are unchanged.
 
-Native IDF build, physical Tab5 runtime, and MAME game execution are not claimed.
+Physical Tab5 runtime and MAME game execution are not claimed.
